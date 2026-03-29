@@ -80,6 +80,7 @@ example:
 ## midiconv.py
 
 this is a rly scuffed tool i was using to generate syllable timetables for each song; it takes a midi file as input and requires the `mido` and `pyperclip` libraries
+
 lyrics are inputted line by line, with spaces separating words and greater-than signs separating syllables. the following is the input notation for the example under "notes.json"
 ```
 [
