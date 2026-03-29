@@ -24,7 +24,7 @@ its also where you match up each song to its directory within the songs folder. 
 ## songs folder
 
 once each song has its metadata listed in tracks.json, it naturally needs its own folder. each folder for each song requires the following inside:
-- "track.mp3": the backing track; most of these ive recreated from scratch bc i like it better as a music production exercise than just using some ai acapella remover, plus even if it isnt perfect its a lot more charming and reminiscent of those other older janky karaoke instrumentals. to anyone making their own karaoke versions of songs, i highly encourage you to do the same
+- "track.mp3": the backing track; most of these ive recreated from scratch bc i like it better as a music production exercise than just using some ai acapella remover, plus even if it isnt perfect its a lot more charming and reminiscent of those other older janky karaoke instrumentals. to anyone making their own karaoke versions of songs, i highly encourage you to do the same[^1]
 - "notes.json": very simple timetable of every syllable that shows up in the lyrics. it works as a series of nested lists, strictly adhering the following structure:
   - each syllable is notated as a two-item list; the syllable itself as a string, followed by its exact timestamp in seconds, typically rounded to 4 decimals
   - the last syllable of every word is followed by a space within the string
@@ -100,3 +100,5 @@ i will say also the output has a tendency to have a few extra commas here and th
 if you're unsure of anything you can go through the example songs ive included and dissect them a little OR feel free to message me on discord (@disphing) or twitter (@dsphng)
 
 have fun !! :3
+
+[^1]: the only exception to this is laced up by tsubi club which uses the original stems, laced up is licensed under creative commons so i figured it was ok hehe; also on the subject of instrumentals fuckboy by brakence is incomplete
