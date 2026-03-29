@@ -1,0 +1,102 @@
+[
+    {
+        "title": "Your favorite sidekick",
+        "artist": "underscores ft. 8485",
+        "album": "fishmonger",
+        "label": "underscores",
+        "year": 2021,
+        "duration": "2:31",
+        "color": "#f00",
+        "directory": "/songs/yfs/"
+    },
+    {
+        "title": "Cops and robbers",
+        "artist": "underscores",
+        "album": "Wallsocket",
+        "label": "Mom+Pop under exclusive license from Corporate Rockmusic, Inc.",
+        "year": 2023,
+        "duration": "4:25",
+        "color": "#0f0",
+        "directory": "/songs/cnr/"
+    },
+    {
+        "title": "Cheerleader",
+        "artist": "Porter Robinson",
+        "album": "Cheerleader",
+        "label": "Sample Sized, LLC Under Exclusive License to Mom+Pop",
+        "year": 2024,
+        "duration": "3:57",
+        "color": "#00f",
+        "directory": "/songs/cl/"
+    },
+    {
+        "title": "venus fly trap",
+        "artist": "brakence",
+        "album": "hypochondriac",
+        "label": "Columbia Records, a Division of Sony Music Entertainment",
+        "year": 2022,
+        "duration": "4:55",
+        "color": "#00f",
+        "directory": "/songs/vft/"
+    },
+    {
+        "title": "Dumbest Girl Alive",
+        "artist": "100 gecs",
+        "album": "10,000 gecs",
+        "label": "Dog Show Records/Atlantic Records, Atlantic Recording Corporation",
+        "year": 2023,
+        "duration": "2:17",
+        "color": "#00f",
+        "directory": "/songs/dga/"
+    },
+    {
+        "title": "fuckboy",
+        "artist": "brakence",
+        "album": "punk2",
+        "label": "Columbia Records, a Division of Sony Music Entertainment",
+        "year": 2020,
+        "duration": "2:37",
+        "color": "#00f",
+        "directory": "/songs/fb/"
+    },
+    {
+        "title": "Backseat Girl",
+        "artist": "Jane Remover",
+        "album": "Census Designated",
+        "label": "deadAir",
+        "year": 2023,
+        "duration": "6:00",
+        "color": "#00f",
+        "directory": "/songs/bsg/"
+    },
+    {
+        "title": "360",
+        "artist": "Charli XCX",
+        "album": "brat",
+        "label": "Atlantic Recording Corporation",
+        "year": 2024,
+        "duration": "2:13",
+        "color": "#00f",
+        "directory": "/songs/360/"
+    },
+    {
+        "title": "laced up",
+        "artist": "tsubi club",
+        "album": "laced up",
+        "label": "tsunami bitch club",
+        "year": 2024,
+        "duration": "2:50",
+        "color": "#00f",
+        "directory": "/songs/lu/"
+    },
+    {
+        "title": "intuit",
+        "artist": "disphing",
+        "album": "href",
+        "label": "disphing",
+        "year": 2024,
+        "duration": "3:01",
+        "color": "#00f",
+        "directory": "/songs/i/"
+    }
+]

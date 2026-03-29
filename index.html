@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+    <head>
+        <title>chronically online karaoke</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <main>
+            <div id="select-window">
+                <div id="search-div">
+                    <input id="select-search" type="search" placeholder="Search">
+                </div>
+                <div id="results-div">
+                    <table id="select-results">
+                    </table>
+                </div>
+                <div id="page-div">
+                    <span>
+                        <p id="select-page">## results</p>
+                    </span>
+                </div>
+                <div id="footer-div">
+                    <img src="logo.svg">
+                    <span>made with 🧡 by <a target="_blank" href="https://disphing.com/">disphing</a></span>
+                </div>
+            </div>
+            <button id="menu-button" class="invisible">
+                MENU
+            </button>
+            <div id="title-card" class="invisible">
+                <h1 id="song-title">Song title</h1>
+                <h2 id="song-artist">Artist</h2>
+                <h3 id="song-copyright">(c) #### XYZ Records</h3>
+                <img src="logo.svg">
+                <button id="song-start" class="select-button">PLAY</button>
+            </div>
+            <div id="lyric-card" class="invisible">
+                <h4 id="line1"></h4>
+                <h4 id="line2"></h4>
+                <h4 id="line3"></h4>
+                <h4 id="line4"></h4>
+            </div>
+        </main>
+    </body>
+</html>
+<script>
+    const selectWindow = document.querySelector("#select-window");
+    const selectSearch = document.querySelector("#select-search");
+    const selectPage = document.querySelector("#select-page");
+    const selectResults = document.querySelector("#select-results");
+    
+    const titleCard = document.querySelector("#title-card")
+    const menuButton = document.querySelector("#menu-button");
+    const songTitle = document.querySelector("#song-title");
+    const songArtist = document.querySelector("#song-artist");
+    const songCopyright = document.querySelector("#song-copyright");
+    const songStart = document.querySelector("#song-start");
+    var songPlaying = false;
+
+    const lyricCard = document.querySelector("#lyric-card");
+    const lyricLine1 = document.querySelector("#line1");
+    const lyricLine2 = document.querySelector("#line2");
+    const lyricLine3 = document.querySelector("#line3");
+    const lyricLine4 = document.querySelector("#line4");
+
+    var tracklist = [];
+
+    const chunk = (arr, size) =>
+        Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
+            arr.slice(i * size, i * size + size)
+        );
+    const sleep = (time) => {
+        return new Promise((resolve) => setTimeout(resolve, Math.ceil(time * 1000)));
+    };
+    
+    fetch("tracks.json").then(res => res.json()).then(data => {
+        data.forEach(track => {
+            tracklist.push(track);
+        });
+        selectPage.innerHTML = tracklist.length + " results";
+        selectResults.innerHTML = "";
+        tracklist.forEach(track => {
+            var row = document.createElement("tr");
+            row.innerHTML = '<td class="table-cover"><img src="' + track.directory + 'cover.png"></td><td><h1>' + track.title + '</h1></td><td><h1>' + track.artist + '</h1></td><td><h2>' + track.album + '</h2></td><td class="table-duration"><h2>' + track.duration + '</h2></td>';
+            row.setAttribute("onclick","songCard('" + track.directory + "')");
+            selectResults.appendChild(row);
+        });
+    });
+    var searchResults = tracklist;
+    var pageNo = 0;
+
+    const songCard = async (directory) => {
+        const songInfo = tracklist[tracklist.findIndex(obj => obj.directory==directory)];
+        selectWindow.className = "invisible";
+        menuButton.className = "";
+        songTitle.innerHTML = '"' + songInfo.title + '"';
+        songArtist.innerHTML = songInfo.artist;
+        songCopyright.innerHTML = "© " + songInfo.year + " " + songInfo.label;
+        await sleep(1);
+        titleCard.className = "visible";
+        player = new Audio(directory + "track.mp3");
+        songStart.addEventListener("click", function() {
+            player.play();
+            console.log(player);
+            songLyrics(directory, player);
+            songPlaying = true;
+            titleCard.className = "invisible";
+            lyricCard.className = "visible";
+            this.removeEventListener('click',arguments.callee,false);
+        });
+        menuButton.addEventListener("click", function(){
+            player.pause();
+            document.querySelectorAll("audio").forEach(e => e.remove());
+            selectWindow.className = "";
+            menuButton.className = "invisible";
+            titleCard.className = "invisible";
+            lyricCard.className = "invisible";
+            songPlaying = false;
+            this.removeEventListener('click',arguments.callee,false);
+        });
+    };
+
+    const songLyrics = (dir, audio) => {
+        var lyricEvents = [];
+        var index = 0;
+        var line = 0;
+        var slide = 0;
+        var offset = 0.1;
+        var init = false;
+        var slideChange = false;
+        lyricLine1.innerHTML = "";
+        lyricLine2.innerHTML = "";
+        lyricLine3.innerHTML = "";
+        lyricLine4.innerHTML = "";
+        fetch(dir + "notes.json").then(res=>res.json()).then(data=>{lyricEvents = data;});
+        const songUpdate = setInterval(function () {
+            if (songPlaying) {
+                if (audio.currentTime >= lyricEvents[0][0][0][1]-offset-2 && init == false) {
+                    try {
+                        for (let i = 0; i < lyricEvents[0][0].length; i++) {
+                            var current = document.createElement("span");
+                            current.id = "0-" + i;
+                            current.class = "lyric-idle";
+                            current.textContent = lyricEvents[0][0][i][0];
+                            lyricLine1.appendChild(current);
+                        };
+                    } catch(TypeError) {};
+                    try {
+                        for (let i = 0; i < lyricEvents[0][1].length; i++) {
+                            var current = document.createElement("span");
+                            current.id = "1-" + i;
+                            current.class = "lyric-idle";
+                            current.textContent = lyricEvents[0][1][i][0];
+                            lyricLine2.appendChild(current);
+                        };
+                    } catch(TypeError) {};
+                    try {
+                        for (let i = 0; i < lyricEvents[0][2].length; i++) {
+                            var current = document.createElement("span");
+                            current.id = "2-" + i;
+                            current.class = "lyric-idle";
+                            current.textContent = lyricEvents[0][2][i][0];
+                            lyricLine3.appendChild(current);
+                        };
+                    } catch(TypeError) {};
+                    try {
+                        for (let i = 0; i < lyricEvents[0][3].length; i++) {
+                            var current = document.createElement("span");
+                            current.id = "3-" + i;
+                            current.class = "lyric-idle";
+                            current.textContent = lyricEvents[0][3][i][0];
+                            lyricLine4.appendChild(current);
+                        };
+                    } catch(TypeError) {};
+                    init = true;
+                };
+                if (audio.currentTime >= lyricEvents[slide][line][index][1]-offset) {
+                    if (index == lyricEvents[slide][line].length-1) {
+                        if (line == lyricEvents[slide].length-1) {
+                            if (slide == lyricEvents.length-1) {
+                                document.getElementById(line + "-" + index).className = "lyric-active";
+                                songPlaying = false;
+                            } else {
+                                document.getElementById(line + "-" + index).className = "lyric-active";
+                                slideChange = true;
+                            };
+                        } else {
+                            document.getElementById(line + "-" + index).className = "lyric-active";
+                            line += 1;
+                            index = 0;
+                        };
+                    } else {
+                        document.getElementById(line + "-" + index).className = "lyric-active";
+                        index += 1;
+                    };
+                };
+                if (slideChange == true && audio.currentTime >= lyricEvents[slide][line][index][1] + 0.5*(lyricEvents[slide+1][0][0][1] - lyricEvents[slide][line][index][1])) {
+                    slide += 1;
+                    line = 0;
+                    index = 0;
+                    lyricLine1.innerHTML = "";
+                    lyricLine2.innerHTML = "";
+                    lyricLine3.innerHTML = "";
+                    lyricLine4.innerHTML = "";
+                    try {
+                        for (let i = 0; i < lyricEvents[slide][0].length; i++) {
+                            var current = document.createElement("span");
+                            current.id = "0-" + i;
+                            current.class = "lyric-idle";
+                            current.textContent = lyricEvents[slide][0][i][0];
+                            lyricLine1.appendChild(current);
+                        };
+                    } catch(TypeError) {};
+                    try {
+                        for (let i = 0; i < lyricEvents[slide][1].length; i++) {
+                            var current = document.createElement("span");
+                            current.id = "1-" + i;
+                            current.class = "lyric-idle";
+                            current.textContent = lyricEvents[slide][1][i][0];
+                            lyricLine2.appendChild(current);
+                        };
+                    } catch(TypeError) {};
+                    try {
+                        for (let i = 0; i < lyricEvents[slide][2].length; i++) {
+                            var current = document.createElement("span");
+                            current.id = "2-" + i;
+                            current.class = "lyric-idle";
+                            current.textContent = lyricEvents[slide][2][i][0];
+                            lyricLine3.appendChild(current);
+                        };
+                    } catch(TypeError) {};
+                    try {
+                        for (let i = 0; i < lyricEvents[slide][3].length; i++) {
+                            var current = document.createElement("span");
+                            current.id = "3-" + i;
+                            current.class = "lyric-idle";
+                            current.textContent = lyricEvents[slide][3][i][0];
+                            lyricLine4.appendChild(current);
+                        };
+                    } catch(TypeError) {};
+                    slideChange = false;
+                };
+            } else {
+                clearInterval(songUpdate);
+                console.log("poo!!!!");
+                selectWindow.className = "";
+                menuButton.className = "invisible";
+                titleCard.className = "invisible";
+                lyricCard.className = "invisible";
+            };
+        }, 50);
+    };
+
+    const updateSearch = (results) => {
+        selectResults.innerHTML = "";
+        results.forEach(track => {
+            var row = document.createElement("tr");
+            row.innerHTML = '<td class="table-cover"><img src="' + track.directory + 'cover.png"></td><td><h1>' + track.title + '</h1></td><td><h1>' + track.artist + '</h1></td><td><h2>' + track.album + '</h2></td><td class="table-duration"><h2>' + track.duration + '</h2></td>';
+            row.setAttribute("onclick","songCard('" + track.directory + "')");
+            selectResults.appendChild(row);
+        });
+        selectPage.innerHTML = results.length + " results";
+    }
+
+    selectSearch.addEventListener("input", e => {
+        var pageNo = 0;
+        var searchResults = [];
+        tracklist.forEach(track => {
+            if (track.title.toLowerCase().includes(e.target.value.toLowerCase())) {
+                searchResults.push(track);
+            } else if (track.artist.toLowerCase().includes(e.target.value.toLowerCase())) {
+                searchResults.push(track);
+            } else if (track.album.toLowerCase().includes(e.target.value.toLowerCase())) {
+                searchResults.push(track);
+            };
+        });
+        updateSearch(searchResults);
+    });
+
+</script>
