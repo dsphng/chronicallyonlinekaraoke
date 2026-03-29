@@ -1,5 +1,5 @@
 # chronically online karaoke !!
-it is exactly what it sounds like
+it is exactly what it sounds like ([demo](https://x.com/dsphng/status/1796156715668328548?s=20))
 
 ---
 
@@ -19,11 +19,11 @@ this is essentially the entire front end; the javascript at the bottom processes
 
 this contains all the info / metadata about each song in the songs folder, basically the stuff that shows up in the search window + before each song actually plays.
 
-its also where you match up each song to its directory within the songs folder. also each song has a "color" attribute that ive yet to do anything with; my idea was to change the yellow highlighted text when the song starts playing to whatever color it says in there but i havent implemented it yet
+its also where you match up each song to its directory within the songs folder. ignore the "color" attribute i havent done anything with that yet
 
 ## songs folder
 
-once each song has its metadata listed in tracks.json, it naturally needs its own folder. each folder for each song requires the following inside:
+each song listed in tracks.json has its own folder, each of which requires the following inside:
 - "track.mp3": the backing track; most of these ive recreated from scratch bc i like it better as a music production exercise than just using some ai acapella remover, plus even if it isnt perfect its a lot more charming and reminiscent of those other older janky karaoke instrumentals. to anyone making their own karaoke versions of songs, i highly encourage you to do the same[^1]
 - "notes.json": very simple timetable of every syllable that shows up in the lyrics. it works as a series of nested lists, strictly adhering the following structure:
   - each syllable is notated as a two-item list; the syllable itself as a string, followed by its exact timestamp in seconds, typically rounded to 4 decimals
@@ -79,9 +79,9 @@ example:
 
 ## midiconv.py
 
-this is a rly scuffed tool i was using to generate syllable timetables for each song; it takes a midi file as input and requires the `mido` and `pyperclip` libraries
+this is a rly scuffed tool i was using to generate syllable timetables for each song; it takes a midi file as input and requires the [mido](https://pypi.org/project/mido/) and [pyperclip](https://pypi.org/project/pyperclip/) libraries
 
-lyrics are inputted line by line, with spaces separating words and greater-than signs separating syllables. the following is the input notation for the example under "notes.json"
+lyrics are inputted line by line, with spaces separating words and greater-than signs separating syllables. the following is the input notation for the example above:
 ```
 [
     "This is a ly>ric",
@@ -91,16 +91,18 @@ lyrics are inputted line by line, with spaces separating words and greater-than 
     "That was a four beat in>stru>men>tal break"
 ]
 ```
-ensure that the midi file you're using as input only has one instrument and that the BPM is set to 60 (VERY IMPORTANT). also make sure that the number of notes in the midi file exactly matches the number of syllables in the lyric input
+ensure that the midi file you're using as input only has one instrument and that the BPM is set to 60 no matter what (VERY IMPORTANT failure to do this will throw out the timings completely)
 
-this script will take the start times of each note as input and map them to each syllable in sequential order. upon running it, it will output a faux json file to the console line by line and then copy it in full to your clipboard. you can then paste that into a new json file. i wasnt lying when i said it was scuffed
+also make sure that the number of notes in the midi file exactly matches the number of syllables in the lyric input
 
-i will say also the output has a tendency to have a few extra commas here and there so you may have to delete them manually. your code editor should flag them down for you hopefully
+this script will take the start times of each note as input and map them to each syllable in sequential order. upon running it, it will output a faux json file to the console line by line and then copy it in full to your clipboard. you can then paste that into a new json file. i wasnt lying when i said it was scuffed lmao
+
+i will say also the output has a tendency to have a few unneeded extra commas here and there so you may have to delete them manually. your code editor should flag them down for you hopefully
 
 ---
 
-if you're unsure of anything you can go through the example songs ive included and dissect them a little OR feel free to message me on discord (@disphing) or twitter (@dsphng)
+if you're unsure of anything you can go through the example songs ive included and dissect them a little OR feel free to message me on discord (discord.com/users/486819707291435008) or twitter ([@dsphng](https://x.com/dsphng))
 
 have fun !! :3
 
-[^1]: the only exception to this is laced up by tsubi club which uses the original stems, laced up is licensed under creative commons so i figured it was ok hehe; also on the subject of instrumentals fuckboy by brakence is incomplete
+[^1]: the only exception to this is _laced up_ by tsubi club which uses the original stems, laced up is licensed under creative commons so i figured it was ok hehe; also on the subject of instrumentals _fuckboy_ by brakence is incomplete
