@@ -13,7 +13,7 @@ i will now go through what each file in this repository does
 
 ## index.html
 
-this is essentially the entire front end; the javascript at the bottom processes the json tables 
+this is essentially the entire front end; the javascript at the bottom processes everything in each song folder
 
 ## tracks.json
 
