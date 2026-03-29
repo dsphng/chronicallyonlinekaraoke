@@ -29,7 +29,8 @@ once each song has its metadata listed in tracks.json, it naturally needs its ow
   - each syllable is notated as a two-item list; the syllable itself as a string, followed by its exact timestamp in seconds, typically rounded to 4 decimals
   - the last syllable of every word is followed by a space within the string
   - each syllable tuple is contained within a larger list for each line
-  - each line list is contained within a larger list for each "screen". when in play, the front end will clear all lyrics from one screen before moving on to the next. DO NOT have more than 4 lines per screen
+  - each line list is contained within a larger list for each "slide". when in play, the front end will clear all lyrics from one slide before moving on to the next. DO NOT have more than 4 lines per slide
+
 example:
 ```
 [
