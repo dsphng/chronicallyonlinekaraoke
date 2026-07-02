@@ -19,13 +19,13 @@ this is essentially the entire front end; the javascript at the bottom processes
 
 this contains all the info / metadata about each song in the songs folder, basically the stuff that shows up in the search window + before each song actually plays.
 
-its also where you match up each song to its directory within the songs folder. ignore the "color" attribute i havent done anything with that yet
+its also where you match up each song to its directory within the songs folder. ignore the `color` attribute i havent done anything with that yet
 
 ## songs folder
 
 each song listed in tracks.json has its own folder, each of which requires the following inside:
-- "track.mp3": the backing track; most of these ive recreated from scratch bc i like it better as a music production exercise than just using some ai acapella remover, plus even if it isnt perfect its a lot more charming and reminiscent of those other older janky karaoke instrumentals. to anyone making their own karaoke versions of songs, i highly encourage you to do the same[^1]
-- "notes.json": very simple timetable of every syllable that shows up in the lyrics. it works as a series of nested lists, strictly adhering the following structure:
+- `track.mp3`: the backing track; most of these ive recreated from scratch bc i like it better as a music production exercise than just using some ai acapella remover, plus even if it isnt perfect its a lot more charming and reminiscent of those other older janky karaoke instrumentals. to anyone making their own karaoke versions of songs, i highly encourage you to do the same[^1]
+- `notes.json`: very simple timetable of every syllable that shows up in the lyrics. it works as a series of nested lists, strictly adhering the following structure:
   - each syllable is notated as a two-item list; the syllable itself as a string, followed by its exact timestamp in seconds, typically rounded to 4 decimals
   - the last syllable of every word is followed by a space within the string
   - each syllable tuple is contained within a larger list for each line
@@ -74,8 +74,8 @@ example:
     ]
 ]
 ```
-- "cover.png": these can be any size but ive been doing mine at 128x128 bc they render at 64x64 and im on a retina display
-- some folders in this repository might have a "notes.mid" file; this isnt necessary, those are just what i use to create the syllable timetables (see midiconv.py)
+- `cover.png`: these can be any size but ive been doing mine at 128x128 bc they render at 64x64 and im on a retina display
+- some folders in this repository might have a `notes.mid` file; this isnt necessary, those are just what i use to create the syllable timetables (see `midiconv.py`)
 
 ## midiconv.py
 
@@ -93,16 +93,16 @@ lyrics are inputted line by line, with spaces separating words and greater-than 
 ```
 ensure that the midi file you're using as input only has one instrument and that the BPM is set to 60 no matter what (VERY IMPORTANT failure to do this will throw out the timings completely)
 
-also make sure that the number of notes in the midi file exactly matches the number of syllables in the lyric input
+also make sure that the number of notes in the midi file exactly matches the number of syllables in the lyric input. this script will take the start times of each note in the midi file and map them to each syllable in the lyrics in sequential order.
 
-this script will take the start times of each note as input and map them to each syllable in sequential order. upon running it, it will output a faux json file to the console line by line and then copy it in full to your clipboard. you can then paste that into a new json file. i wasnt lying when i said it was scuffed lmao
+upon running it, it will output a faux json file to the console line by line and then copy it in full to your clipboard. you can then paste that into a new blank json file, which you can then rename `notes.json` and add to your song directory. i wasnt lying when i said it was scuffed lmao
 
 i will say also the output has a tendency to have a few unneeded extra commas here and there so you may have to delete them manually. your code editor should flag them down for you hopefully
 
 ---
 
-if you're unsure of anything you can go through the example songs ive included and dissect them a little OR feel free to message me on discord (discord.com/users/486819707291435008) or twitter ([@dsphng](https://x.com/dsphng))
+if you're unsure of anything you can go through the example songs ive included and dissect them a little OR feel free to message me on discord ([@disphing](discord.com/users/486819707291435008)) or twitter ([@dsphng](https://x.com/dsphng))
 
 have fun !! :3
 
-[^1]: the only exception to this is _laced up_ by tsubi club which uses the original stems, laced up is licensed under creative commons so i figured it was ok hehe; also on the subject of instrumentals _fuckboy_ by brakence is incomplete
+[^1]: the only exception to this is _laced up_ by tsubi club which uses the original stems; laced up is licensed under creative commons so i figured it was ok ! also on the subject of instrumentals _fuckboy_ by brakence is incomplete
