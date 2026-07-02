@@ -7,7 +7,7 @@
         "year": 2021,
         "duration": "2:31",
         "color": "#f00",
-        "directory": "/songs/yfs/"
+        "directory": "songs/yfs/"
     },
     {
         "title": "Cops and robbers",
@@ -17,7 +17,7 @@
         "year": 2023,
         "duration": "4:25",
         "color": "#0f0",
-        "directory": "/songs/cnr/"
+        "directory": "songs/cnr/"
     },
     {
         "title": "Cheerleader",
@@ -27,7 +27,7 @@
         "year": 2024,
         "duration": "3:57",
         "color": "#00f",
-        "directory": "/songs/cl/"
+        "directory": "songs/cl/"
     },
     {
         "title": "venus fly trap",
@@ -37,7 +37,7 @@
         "year": 2022,
         "duration": "4:55",
         "color": "#00f",
-        "directory": "/songs/vft/"
+        "directory": "songs/vft/"
     },
     {
         "title": "Dumbest Girl Alive",
@@ -47,7 +47,7 @@
         "year": 2023,
         "duration": "2:17",
         "color": "#00f",
-        "directory": "/songs/dga/"
+        "directory": "songs/dga/"
     },
     {
         "title": "fuckboy",
@@ -57,7 +57,7 @@
         "year": 2020,
         "duration": "2:37",
         "color": "#00f",
-        "directory": "/songs/fb/"
+        "directory": "songs/fb/"
     },
     {
         "title": "Backseat Girl",
@@ -67,7 +67,7 @@
         "year": 2023,
         "duration": "6:00",
         "color": "#00f",
-        "directory": "/songs/bsg/"
+        "directory": "songs/bsg/"
     },
     {
         "title": "360",
@@ -77,7 +77,7 @@
         "year": 2024,
         "duration": "2:13",
         "color": "#00f",
-        "directory": "/songs/360/"
+        "directory": "songs/360/"
     },
     {
         "title": "laced up",
@@ -87,7 +87,7 @@
         "year": 2024,
         "duration": "2:50",
         "color": "#00f",
-        "directory": "/songs/lu/"
+        "directory": "songs/lu/"
     },
     {
         "title": "intuit",
@@ -97,7 +97,7 @@
         "year": 2024,
         "duration": "3:01",
         "color": "#00f",
-        "directory": "/songs/i/"
+        "directory": "songs/i/"
     },
     {
         "title": "Bodyfeeling",
@@ -107,6 +107,6 @@
         "year": 2026,
         "duration": "4:05",
         "color": "#00f",
-        "directory": "/songs/bf/"
+        "directory": "songs/bf/"
     }
 ]
