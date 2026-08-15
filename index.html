@@ -138,7 +138,7 @@
         lyricLine2.innerHTML = "";
         lyricLine3.innerHTML = "";
         lyricLine4.innerHTML = "";
-        fetch(dir + "notes.json").then(res=>res.json()).then(data=>{lyricEvents = data;});
+        fetch("https://dsphng.github.io/chronicallyonlinekaraoke/" + dir + "notes.json").then(res=>res.json()).then(data=>{lyricEvents = data;});
         const songUpdate = setInterval(function () {
             if (songPlaying) {
                 if (audio.currentTime >= lyricEvents[0][0][0][1]-offset-2 && init == false) {
