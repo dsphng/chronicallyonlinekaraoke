@@ -104,16 +104,16 @@
         await sleep(1);
         titleCard.className = "visible";
         player = new Audio(directory + "track.mp3");
-        songStart.addEventListener("click", function() {
+        songStart.onclick = function() {
             player.play();
             console.log(player);
             songLyrics(directory, player);
             songPlaying = true;
             titleCard.className = "invisible";
             lyricCard.className = "visible";
-            this.removeEventListener('click',arguments.callee,false);
-        });
-        menuButton.addEventListener("click", function(){
+            songStart.onclick = undefined;
+        };
+        menuButton.onclick = function() {
             player.pause();
             document.querySelectorAll("audio").forEach(e => e.remove());
             selectWindow.className = "";
@@ -121,8 +121,9 @@
             titleCard.className = "invisible";
             lyricCard.className = "invisible";
             songPlaying = false;
-            this.removeEventListener('click',arguments.callee,false);
-        });
+            songStart.onclick = undefined;
+            menuButton.onclick = undefined;
+        };
     };
 
     const songLyrics = (dir, audio) => {
